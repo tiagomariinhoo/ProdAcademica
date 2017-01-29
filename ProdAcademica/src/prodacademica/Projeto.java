@@ -18,8 +18,8 @@ public class Projeto {
     private int participantes; //Ter pelo menos 1 professor participante
     private String status; //"Em elaboração" -> "Em andamento" -> "Concluído"
     private boolean alocado;
-     ArrayList<Colaboradores> colab;
-     ArrayList<Publicacoes> publicacoes;
+     ArrayList<Colaboradores> colab = new ArrayList<Colaboradores>();
+     ArrayList<Publicacoes> publicacoes = new ArrayList<Publicacoes>();
 
     
 
@@ -166,8 +166,6 @@ public class Projeto {
         
         proj.setStatus("Em elaboração");
         proj.setAlocado(false);
-        proj.colab = new ArrayList <Colaboradores>();
-        proj.publicacoes = new ArrayList <Publicacoes>();
         
         return proj;
     }
@@ -188,7 +186,8 @@ public class Projeto {
             System.out.println("Objetivo : " + proj.get(i).getObjetivo());
             System.out.println("Descricao : " + proj.get(i).getDescricao());
             System.out.println("Status : " + proj.get(i).getStatus());
-                if(proj.get(i).getAlocado()==true){
+                
+            if(proj.get(i).getAlocado()==true){
                     System.out.println("PUBLICAÇÃO ALOCADA : ");
                     Publicacoes pub_aux = new Publicacoes();
                     
@@ -196,9 +195,9 @@ public class Projeto {
                 }
                 
                 if(proj.get(i).colab.size()>0){
-                    for(int j=0;i<proj.get(i).colab.size();j++){
+                    for(int j=0;j<proj.get(i).colab.size();j++){
                         System.out.println("------ COLABORADORES ------");
-                        System.out.println("Colaborador : " + proj.get(i).colab.get(j).getNome());
+                            System.out.println("Colaborador : " + proj.get(i).colab.get(j).getNome());
                             if(proj.get(i).colab.get(j).getCargo()==1){
                                 System.out.println("Cargo : Aluno de graduação");
                             } else if (proj.get(i).colab.get(j).getCargo()==2){
@@ -210,7 +209,7 @@ public class Projeto {
                             } else if (proj.get(i).colab.get(j).getCargo()==5){
                                 System.out.println("Cargo : Pesquisador");
                             }
-                        System.out.println("----------");
+                            System.out.println("----------");   
                     }
                 }
             System.out.println("---------------");
@@ -331,6 +330,29 @@ public class Projeto {
         System.out.println("Alteração feita com sucesso!");
         
     }
+    
+    public int contarProjetos(int op, ArrayList <Projeto> proj){
+        int contador=0;
+                
+        if(op==1){ //Em elaboração
+            for(int i=0;i<proj.size();i++){
+                if(proj.get(i).getStatus().equals("Em elaboração")) contador++;
+            }
+            return contador;
+        } else if (op==2){ //Em andamento
+            for(int i=0;i<proj.size();i++){
+                if(proj.get(i).getStatus().equals("Em andamento")) contador++;
+            }
+            return contador;
+        } else if (op==3){
+            for(int i=0;i<proj.size();i++){
+                if(proj.get(i).getStatus().equals("Concluído")) contador++;
+            }
+            return contador;
+        }
+        return -1;
+    }
+    
     public int menuProjeto(){
         Scanner scan = new Scanner(System.in);
         //Colaboradores col_aux = new Colaboradores();

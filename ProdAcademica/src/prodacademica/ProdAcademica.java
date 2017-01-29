@@ -26,6 +26,7 @@ public class ProdAcademica {
         System.out.println("1 - Colaborador");
         System.out.println("2 - Projeto");
         System.out.println("3 - Publicacoes");
+        System.out.println("4 - Fornecer relatório de produção acadêmica");
         System.out.println("0 - Sair");
         
         int op;
@@ -76,6 +77,15 @@ public class ProdAcademica {
                     } else if (op_aux==3){
                         pub_aux.alocarPublicacao(proj, pub);
                     }
+                    
+                } else if (op==4){
+                    System.out.println("----------");
+                    System.out.println("Numero de colaboradores : " + col.size());
+                    System.out.println("Numero de projetos em elaboração : " + proj_aux.contarProjetos(1, proj));
+                    System.out.println("Numero de projetos em andamento : " + proj_aux.contarProjetos(2, proj));
+                    System.out.println("Numero de projetos concluidos : " + proj_aux.contarProjetos(3, proj));
+                    System.out.println("Numero total de projetos : " + proj.size());
+                    col_aux.prodAcademicaGrad(col);
                     
                 }else if (op==0){
                     break;

@@ -219,13 +219,19 @@ public class Colaboradores {
                 System.out.println("Selecione o projeto por numero : ");
                 int op3 = scan.nextInt();
                 
-                if(col.get(op2).proj.size()==0){
-                    col.get(op2).proj.add(proj.get(op3));
-                    System.out.println("Aluno alocado com sucesso!");
-                } else {
-                    System.out.println("O aluno " + col.get(op2).getNome() + " já faz parte de um projeto!");
-                }
-                    
+                boolean at=false;
+                    for(int i=0;i<col.get(op2).proj.size();i++){
+                        if(col.get(op2).proj.get(i).getStatus().equals("Em andamento")){
+                            at=true;
+                        }
+                    }
+                    if(!at){
+                        col.get(op2).proj.add(proj.get(op3));
+                        proj.get(op3).colab.add(col.get(op2));
+                        System.out.println("Aluno alocado com sucesso!");
+                    } else {
+                        System.out.println("O aluno " + col.get(op2).getNome() + " já faz parte de um projeto!");
+                    }
                 
             } else if (op==4){
                 if(proj.size()==0){
@@ -266,7 +272,6 @@ public class Colaboradores {
                         System.out.println("Titulo : " + proj.get(op2).getTitulo());
                         System.out.println("Colaboradores : " + proj.get(op2).colab.size());
                         if(proj.get(op2).colab.size()>0){
-                            System.out.println("Aqui1");
                             for(int i=0;i<proj.get(op2).colab.size();i++){
                                 if(proj.get(op2).colab.get(i).cargo==4){
                                     pode = true;
@@ -364,11 +369,20 @@ public class Colaboradores {
                             }
                             
                             if(col.get(i).proj.size()>0){
+                                
+                                for(int j=0;j<col.get(i).proj.size();j++){
+                                    System.out.println("----------");
+                                    System.out.println("Projeto : " + col.get(i).proj.get(j).getTitulo());
+                                    System.out.println("Status : " + col.get(i).proj.get(j).getStatus());
+                                    System.out.println("----------");
+                                }
+                                /*
                                 System.out.println("----------");
                                 System.out.println("Projeto alocado : ");
+                                    System.out.println("Titulo : " + );
                                     Projeto proj = new Projeto();
                                     proj.mostrarProjeto(col.get(i).proj);
-                                System.out.println("----------");
+                                System.out.println("----------");*/
                             }
                             
                             System.out.println("---------------");
@@ -422,6 +436,49 @@ public class Colaboradores {
         
         System.out.println("Colaborador adicionado com sucesso!");
         return col;
+    }
+    
+    public void prodAcademicaGrad(ArrayList <Colaboradores> col){
+        if(col.size()==0){
+            System.out.println("Ainda não há colaboradores registrados!");
+        }
+        int cont_grad=0, cont_mest=0,cont_dout=0,cont_pro=0;
+        
+        for(int i=0;i<col.size();i++){
+            if(col.get(i).getCargo()==1){ //Graduação
+                for(int j=0;j<col.get(i).proj.size();j++){
+                    if(col.get(i).proj.get(j).getStatus().equals("Concluído")){
+                        cont_grad++;
+                    }
+                }
+            } else if (col.get(i).getCargo()==2){
+                for(int j=0;j<col.get(i).proj.size();j++){
+                    if(col.get(i).proj.get(j).getStatus().equals("Concluído")){
+                        cont_mest++;
+                    }
+                }
+                
+            } else if (col.get(i).getCargo()==3){
+                for(int j=0;j<col.get(i).proj.size();j++){
+                    if(col.get(i).proj.get(j).getStatus().equals("Concluído")){
+                        cont_dout++;
+                    }
+                }
+                
+            } else if (col.get(i).getCargo()==4){
+                for(int j=0;j<col.get(i).proj.size();j++){
+                    if(col.get(i).proj.get(j).getStatus().equals("Concluído")){
+                        cont_pro++;
+                    }
+                }
+                
+            }
+        }
+        
+        System.out.println("Produção academica de alunos da graduação : " + cont_grad );
+        System.out.println("Produção academica de alunos do mestrado : " + cont_mest);
+        System.out.println("Produção academica de alunos do doutorado : " + cont_dout);
+        System.out.println("Produção academica de professores : " + cont_pro);
     }
     
     
