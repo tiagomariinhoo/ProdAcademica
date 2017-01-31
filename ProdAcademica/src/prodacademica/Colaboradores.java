@@ -4,67 +4,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
-public class Colaboradores {
+public class Colaboradores extends Pessoa {
     
-    private String nome;
-    private int idade;
-    private String endereco;
-    private String email;
-    private int cargo;
-    private boolean alocado;
-
-
+    ArrayList <Publicacoes> pub = new ArrayList <Publicacoes> ();
     ArrayList <Projeto> proj = new ArrayList <Projeto>();
     ArrayList <Colaboradores> colab = new ArrayList<Colaboradores>();
-
-    
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-    
-    public int getCargo() {
-        return cargo;
-    }
-
-    public void setCargo(int cargo) {
-        this.cargo = cargo;
-    }
-    
-    public int getIdade() {
-        return idade;
-    }
-
-    public void setIdade(int idade) {
-        this.idade = idade;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
-   
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-    
-    public boolean getAlocado() {
-        return alocado;
-    }
-
-    public void setAlocado(boolean alocado) {
-        this.alocado = alocado;
-    }
     
     public void alocarColaborador(ArrayList <Colaboradores> col, ArrayList<Projeto> proj){ //Professor -> Aluno // Professor -> Projeto
         if(col.size()==0){
@@ -103,7 +47,7 @@ public class Colaboradores {
                         
                         int contador2=0;    
                             for(int i=0;i<col.size();i++){
-                                if(col.get(i).getCargo()!=4 && col.get(i).getCargo()!=5){
+                                if(col.get(i).getCargo()!=4 && col.get(i).getCargo()!=5 && col.get(i).colab.size()==0){
                                     System.out.println("----- ALUNO -----");
                                     System.out.println("Aluno : " + col.get(i).getNome());
                                     System.out.println("Numero : " + i);
@@ -118,8 +62,9 @@ public class Colaboradores {
                             
                         System.out.println("Escolha o aluno que receberá o professor como orientador : ");
                         int op3 = scan.nextInt();
-                            if(col.get(op3).getCargo()!=5 && col.get(op3).getCargo()!=4){
+                            if(col.get(op3).getCargo()!=5 && col.get(op3).getCargo()!=4 && col.get(op3).colab.size()==0){
                                 col.get(op3).colab.add(col.get(numb)); //Professor a um aluno
+                                col.get(numb).colab.add(col.get(op3)); //Aluno a profesor
                                 System.out.println("Professor alocado com sucesso!");
                             } else {
                                 System.out.println("Selecione uma opção válida!");
@@ -153,6 +98,21 @@ public class Colaboradores {
                     return ;
                 }
                 
+                boolean pode=false;
+                
+                if(proj.size()>0){
+                    for(int i=0;i<proj.size();i++){
+                        if(proj.get(i).getStatus().equals("Em elaboração")){
+                            pode = true;
+                        }
+                    }
+                    
+                    if(!pode){
+                        System.out.println("Não há projetos disponíveis!");
+                        return ;
+                    }
+                }
+                
                 System.out.println("Escolha o professor por número : ");
                 int numb = scan.nextInt();
                     if(col.get(numb).getCargo()==4){
@@ -180,7 +140,7 @@ public class Colaboradores {
             } else if (op==3){
                 int contador2=0;
                 for(int i=0;i<col.size();i++){
-                    if(col.get(i).getCargo()!=4 && col.get(i).getCargo()!=5 && col.get(i).alocado==false){
+                    if(col.get(i).getCargo()!=4 && col.get(i).getCargo()!=5 && col.get(i).getAlocado()==false){
                         System.out.println("----- ALUNO -----");
                         System.out.println("Nome : " + col.get(i).getNome());
                         System.out.println("Numero : " + i);
@@ -273,7 +233,7 @@ public class Colaboradores {
                         System.out.println("Colaboradores : " + proj.get(op2).colab.size());
                         if(proj.get(op2).colab.size()>0){
                             for(int i=0;i<proj.get(op2).colab.size();i++){
-                                if(proj.get(op2).colab.get(i).cargo==4){
+                                if(proj.get(op2).colab.get(i).getCargo()==4){
                                     pode = true;
                                     break;
                                 }
@@ -305,10 +265,9 @@ public class Colaboradores {
             
     }
     
-    
+    @Override
     public void mostrarColaborador(ArrayList <Colaboradores> col){
         Scanner scan = new Scanner (System.in);
-        
         if(col.size()==0){
             System.out.println("Ainda não há colaboradores registrados!");
             return ;
@@ -317,15 +276,15 @@ public class Colaboradores {
         System.out.println("1 - Procurar colaborador");
         System.out.println("2 - Listar colaboradores");
         int op = scan.nextInt();
-        
+            String nome = null;
             if(op==1){
                 System.out.println("Digite o nome do colaborador que deseja ser encontrado : ");
                 scan.nextLine();
-                String nome = scan.nextLine();
+                nome = scan.nextLine();
             }
                 for(int i=0;i<col.size();i++){
                     if(op==1){
-                        if(col.get(i).nome.equals(nome)){
+                        if(col.get(i).getNome().equals(nome)){
                             System.out.println("Nome : " + col.get(i).getNome());
                             System.out.println("Idade : " + col.get(i).getIdade());
                             System.out.println("Endereco : " + col.get(i).getEndereco());
@@ -346,6 +305,12 @@ public class Colaboradores {
                                 System.out.println("Projeto alocado : ");
                                     Projeto proj = new Projeto();
                                     proj.mostrarProjeto(col.get(i).proj);
+                            }
+                            
+                            if(col.get(i).colab.size()>0){
+                                System.out.println("Orientador : ");
+                                Colaboradores colab = new Colaboradores();
+                                colab.mostrarColaborador(col.get(i).colab);
                             }
                             
                             System.out.println("---------------");
@@ -376,14 +341,22 @@ public class Colaboradores {
                                     System.out.println("Status : " + col.get(i).proj.get(j).getStatus());
                                     System.out.println("----------");
                                 }
-                                /*
-                                System.out.println("----------");
-                                System.out.println("Projeto alocado : ");
-                                    System.out.println("Titulo : " + );
-                                    Projeto proj = new Projeto();
-                                    proj.mostrarProjeto(col.get(i).proj);
-                                System.out.println("----------");*/
+                                
                             }
+                            
+                               if(col.get(i).colab.size()>0){
+                                   System.out.println("------- COLABORADORES LIGADOS -------");
+                                    for(int j=0;j<col.get(i).colab.size();j++){
+                                        System.out.println("Nome : " + col.get(i).colab.get(j).getNome());
+                                        if(col.get(i).colab.get(j).getCargo()==4){
+                                            System.out.println("Cargo : Orientador ");
+                                        } else if (col.get(i).colab.get(j).getCargo()==1 || col.get(i).colab.get(j).getCargo()==2 || col.get(i).colab.get(j).getCargo()==3 ){
+                                            System.out.println("Cargo : Orientando");
+                                        }
+                                        
+                                    }
+                                    System.out.println("------------------------------------");
+                               }
                             
                             System.out.println("---------------");
                     }
@@ -479,6 +452,17 @@ public class Colaboradores {
         System.out.println("Produção academica de alunos do mestrado : " + cont_mest);
         System.out.println("Produção academica de alunos do doutorado : " + cont_dout);
         System.out.println("Produção academica de professores : " + cont_pro);
+        
+        int count=0;
+        for(int i=0;i<col.size();i++){
+            if(col.get(i).getCargo()==4){
+                if(col.get(i).colab.size()>0){
+                    count+=col.get(i).colab.size();
+                }
+            }
+        }
+        
+        System.out.println("Numero de orientações : " + count);
     }
     
     
@@ -520,8 +504,8 @@ public class Colaboradores {
         String nome = scan.nextLine();
         
         for(int i=0;i<col.size();i++){
-            if(col.get(i).nome.equals(nome)){
-                System.out.println("Colaborador "+ col.get(i).nome + " removido com sucesso!");
+            if(col.get(i).getNome().equals(nome)){
+                System.out.println("Colaborador "+ col.get(i).getNome() + " removido com sucesso!");
                 System.out.println("----------");
                 col.remove(i);
                 return ;

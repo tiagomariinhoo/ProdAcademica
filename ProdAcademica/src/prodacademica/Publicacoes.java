@@ -51,12 +51,19 @@ public class Publicacoes {
             System.out.println("Ainda não há projetos registrados!");
             return ;
         }
+        
+        if(pub.size()==0){
+            System.out.println("Ainda não há publicacoes registradas!");
+            return ;
+        }
         int contador=0;
         for(int i=0;i<proj.size();i++){
             if(proj.get(i).getStatus().equals("Em andamento")){
+                System.out.println("------- PROJETOS -------");
                 System.out.println("Projeto : " + proj.get(i).getTitulo());
                 System.out.println("Numero : " + i);
                 System.out.println("Está disponível para ser associado à essa publicação.");
+                System.out.println("------------------------");
                 contador++;
             }
         }
@@ -68,11 +75,14 @@ public class Publicacoes {
         
         contador=0;
         
+        
         for(int i=0;i<pub.size();i++){
             if(pub.get(i).getAlocado()==false){
+                System.out.println("------- PUBLICAÇÕES -------");
                 System.out.println("Publicação : " + pub.get(i).getTitulo());
                 System.out.println("Numero : " + i);
                 System.out.println("Pode ser alocada para algum projeto.");
+                System.out.println("---------------------------");
             }
         }
         
