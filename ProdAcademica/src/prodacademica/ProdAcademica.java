@@ -71,11 +71,16 @@ public class ProdAcademica {
                     int op_aux = pub_aux.menuPublicacoes();
                         
                     if(op_aux==1){
-                        pub.add(pub_aux.lancarPublicacao());
+                        pub_aux = pub_aux.lancarPublicacao(col);
+                        if(pub_aux!=null){
+                            pub.add(pub_aux);
+                        }
                     } else if (op_aux==2){
                         pub_aux.removerPublicacao(pub);
                     } else if (op_aux==3){
                         pub_aux.alocarPublicacao(proj, pub);
+                    } else if (op_aux==4){
+                        pub_aux.mostrarPublicacao(pub);
                     }
                     
                 } else if (op==4){
