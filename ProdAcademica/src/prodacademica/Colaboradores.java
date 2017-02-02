@@ -1,6 +1,9 @@
 package prodacademica;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Scanner;
 
 
@@ -302,9 +305,46 @@ public class Colaboradores extends Pessoa {
                             }
                             
                             if(col.get(i).proj.size()>0){
+                                System.out.println("-------");
+                                GregorianCalendar cal = new GregorianCalendar();
+                                GregorianCalendar cal2 = new GregorianCalendar();
                                 System.out.println("Projeto alocado : ");
-                                    Projeto proj = new Projeto();
-                                    proj.mostrarProjeto(col.get(i).proj);
+                                
+                                Projeto[] auxpro = new Projeto[50];
+                                for(int j=0;j<col.get(i).proj.size();j++){
+                                        auxpro[j] = col.get(i).proj.get(j);
+                                    }
+                                
+                                if(col.get(i).proj.size()>1){
+                                    
+                                    Projeto aux = new Projeto();
+                                    
+                                    
+                                    for(int j=0;j<col.get(i).proj.size();j++){ //Ordenação
+                                        for(int k=0;k<col.get(i).proj.size()-1;k++){
+                                            cal.setTime(auxpro[k].getDataTermino());
+                                            cal2.setTime(auxpro[k+1].getDataTermino());
+                                            
+                                            if(cal.get(Calendar.YEAR)<cal2.get(Calendar.YEAR)){
+                                                Projeto projaux = new Projeto();
+                                                projaux = auxpro[k];
+                                                auxpro[k] = auxpro[k+1];
+                                                auxpro[k+1] = projaux;
+                                                
+                                            }
+                                        }
+                                    }
+                                }
+                                
+                                for(int j=0;j<col.get(i).proj.size();j++){
+                                        
+                                        System.out.println("-------");
+                                        System.out.println("Projeto : " + auxpro[j].getTitulo());
+                                        System.out.println("Status : " + auxpro[j].getStatus());
+                                        System.out.println("Ano : " + auxpro[j].getDataTermino());
+                                        System.out.println("-------");
+                                }
+                            
                             }
                             
                             if(col.get(i).colab.size()>0){
@@ -334,14 +374,45 @@ public class Colaboradores extends Pessoa {
                             }
                             
                             if(col.get(i).proj.size()>0){
+                                System.out.println("-------");
+                                GregorianCalendar cal = new GregorianCalendar();
+                                GregorianCalendar cal2 = new GregorianCalendar();
+                                System.out.println("Projeto alocado : ");
                                 
+                                Projeto[] auxpro = new Projeto[50];
                                 for(int j=0;j<col.get(i).proj.size();j++){
-                                    System.out.println("----------");
-                                    System.out.println("Projeto : " + col.get(i).proj.get(j).getTitulo());
-                                    System.out.println("Status : " + col.get(i).proj.get(j).getStatus());
-                                    System.out.println("----------");
+                                        auxpro[j] = col.get(i).proj.get(j);
+                                    }
+                                
+                                if(col.get(i).proj.size()>1){
+                                    
+                                    Projeto aux = new Projeto();
+                                    
+                                    for(int j=0;j<col.get(i).proj.size();j++){ //Ordenação
+                                        for(int k=0;k<col.get(i).proj.size()-1;k++){
+                                            cal.setTime(auxpro[k].getDataTermino());
+                                            cal2.setTime(auxpro[k+1].getDataTermino());
+                                            
+                                            if(cal.get(Calendar.YEAR)<cal2.get(Calendar.YEAR)){
+                                                Projeto projaux = new Projeto();
+                                                projaux = auxpro[k];
+                                                auxpro[k] = auxpro[k+1];
+                                                auxpro[k+1] = projaux;
+                                                
+                                            }
+                                        }
+                                    }
                                 }
                                 
+                                for(int j=0;j<col.get(i).proj.size();j++){
+                                        
+                                        System.out.println("-------");
+                                        System.out.println("Projeto : " + auxpro[j].getTitulo());
+                                        System.out.println("Status : " + auxpro[j].getStatus());
+                                        System.out.println("Ano : " + auxpro[j].getDataTermino());
+                                        System.out.println("-------");
+                                }
+                            
                             }
                             
                                if(col.get(i).colab.size()>0){

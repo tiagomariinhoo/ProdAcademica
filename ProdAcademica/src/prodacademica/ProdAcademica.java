@@ -14,9 +14,6 @@ public class ProdAcademica {
         ArrayList<Projeto> proj = new ArrayList <Projeto>();
         ArrayList<Publicacoes> pub = new ArrayList <Publicacoes>();
         
-        Colaboradores col_aux = new Colaboradores();
-        Projeto proj_aux = new Projeto();
-        Publicacoes pub_aux = new Publicacoes();
         
         Scanner scan = new Scanner(System.in);
         
@@ -28,6 +25,10 @@ public class ProdAcademica {
         System.out.println("3 - Publicacoes");
         System.out.println("4 - Fornecer relatório de produção acadêmica");
         System.out.println("0 - Sair");
+        
+        Publicacoes pub_aux = new Publicacoes();
+        Colaboradores col_aux = new Colaboradores();
+        Projeto proj_aux = new Projeto();
         
         int op;
         try{

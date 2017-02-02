@@ -196,7 +196,7 @@ public class Publicacoes {
             System.out.println("Nome da conferência : " + pub.get(i).nome_conf);
             System.out.println("Ano de publicação : " + pub.get(i).getAno());
                 for(int j=0;j<pub.get(i).autores.size();j++){
-                    System.out.println("-----AUTORES-----");
+                    System.out.println("----- AUTORES PUBLICACAO -----");
                     System.out.println("Nome : " + pub.get(i).autores.get(j).getNome());
                         if(pub.get(i).autores.get(j).getCargo()==1){
                             System.out.println("Cargo : Aluno de graduacao");

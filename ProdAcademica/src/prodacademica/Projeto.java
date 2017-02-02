@@ -188,10 +188,12 @@ public class Projeto {
             System.out.println("Status : " + proj.get(i).getStatus());
                 
             if(proj.get(i).getAlocado()==true){
+                System.out.println("------");
                     System.out.println("PUBLICAÇÃO ALOCADA : ");
                     Publicacoes pub_aux = new Publicacoes();
                     
                     pub_aux.mostrarPublicacao(proj.get(i).publicacoes);
+                    System.out.println("------");
                 }
                 
                 if(proj.get(i).colab.size()>0){
