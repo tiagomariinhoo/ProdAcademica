@@ -98,10 +98,9 @@ public class ProdAcademica {
                 }  
             //1pass=0;
         } catch(Exception e){
+            scan.nextLine();
             System.out.println("Por favor, tente novamente!");
-        }
-        
-        
+        } 
         
     }
     

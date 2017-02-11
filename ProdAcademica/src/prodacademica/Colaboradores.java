@@ -118,17 +118,35 @@ public class Colaboradores extends Pessoa {
                 
                 System.out.println("Escolha o professor por número : ");
                 int numb = scan.nextInt();
+                int count = proj.size();
                     if(col.get(numb).getCargo()==4){
                         for(int i=0;i<proj.size();i++){
                             if(proj.get(i).getStatus().equals("Em elaboração")){
+                                boolean at = false;
+                                
+                                if(proj.get(i).colab.size()>0){
+                                at=false;
+                                    for(int m=0;m<proj.get(i).colab.size();m++){
+                                        if(proj.get(i).colab.get(m).getNome().equals(col.get(numb).getNome())){
+                                            at=true;
+                                            count--;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if(!at){
                                 System.out.println("----- PROJETO -----");
                                 System.out.println("Projeto : " + proj.get(i).getTitulo());
                                 System.out.println("Numero : " + i);
                                 System.out.println("-------------------");
+                                }
                             }
                             
                         }
-                        
+                        if(count==0){
+                            System.out.println("Não há projetos disponíveis!");
+                            return;
+                        }
                         System.out.println("Selecione o projeto por numero : ");
                         int op2 = scan.nextInt();
 
@@ -281,7 +299,13 @@ public class Colaboradores extends Pessoa {
         int op = scan.nextInt();
             String nome = null;
             if(op==1){
-                System.out.println("Digite o nome do colaborador que deseja ser encontrado : ");
+                
+                for(int j=0;j<col.size();j++){
+                    System.out.println("Nome : " + col.get(j).getNome());
+                    System.out.println("Id : " + j);
+                }
+                
+                System.out.println("Selecione o id do colaborador que deseja ser encontrado : ");
                 scan.nextLine();
                 nome = scan.nextLine();
             }
@@ -354,8 +378,17 @@ public class Colaboradores extends Pessoa {
                             }
                             
                             System.out.println("---------------");
+                        
+                            if(col.get(i).pub.size()>0){
+                                   System.out.println("------- PUBLICAÇÕES --------");
+                                   for(int j=0;j<col.get(i).pub.size();j++){
+                                       System.out.println("Publicacao : " + col.get(i).pub.get(j).getTitulo());
+                                       System.out.println("Ano : " + col.get(i).pub.get(j).getAno());
+                                   }
+                               }
+                            return ;
                         }
-                    return ;
+                    
                     } else if (op==2){
                             System.out.println("Nome : " + col.get(i).getNome());
                             System.out.println("Idade : " + col.get(i).getIdade());
@@ -427,6 +460,14 @@ public class Colaboradores extends Pessoa {
                                         
                                     }
                                     System.out.println("------------------------------------");
+                               }
+                               
+                               if(col.get(i).pub.size()>0){
+                                   System.out.println("------- PUBLICAÇÕES --------");
+                                   for(int j=0;j<col.get(i).pub.size();j++){
+                                       System.out.println("Publicacao : " + col.get(i).pub.get(j).getTitulo());
+                                       System.out.println("Ano : " + col.get(i).pub.get(j).getAno());
+                                   }
                                }
                             
                             System.out.println("---------------");
@@ -595,13 +636,14 @@ public class Colaboradores extends Pessoa {
         
         for(int i=0;i<col.size();i++){
             System.out.println("Colaborador : " + col.get(i).getNome());
+            System.out.println("Id : " + i);
             System.out.println("----------");
         }
     
-        System.out.println("Digite o nome do colaborador que terá alteração : ");
-        String nome = scan.nextLine();
+        System.out.println("Digite o id do colaborador que terá alteração : ");
+        int opt = scan.nextInt();
             for(int i=0;i<col.size();i++){
-                if(col.get(i).getNome().equals(nome)){
+                if(col.get(opt)!=null){
                     System.out.println("Selecione o que deseja alterar : ");
                     System.out.println("1 - Nome");
                     System.out.println("2 - Idade");
@@ -610,6 +652,7 @@ public class Colaboradores extends Pessoa {
                     System.out.println("5 - Cargo");
                     System.out.println("0 - Sair");
                     int op = scan.nextInt();
+                    String nome;
                         if(op==1){
                             scan.nextLine();
                             System.out.println("Digite o nome : ");
@@ -639,7 +682,7 @@ public class Colaboradores extends Pessoa {
                             int cargo = scan.nextInt();
                             col.get(i).setCargo(cargo);
                         }
-                }
+                } 
             }
         
         

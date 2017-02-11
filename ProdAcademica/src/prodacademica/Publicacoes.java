@@ -191,6 +191,11 @@ public class Publicacoes {
     }
     
     public void mostrarPublicacao(ArrayList<Publicacoes> pub){
+        if(pub.size()==0){
+            System.out.println("Ainda não há publicações registradas!");
+            return ;
+        }
+        
         for(int i=0;i<pub.size();i++){
             System.out.println("Titulo : " + pub.get(i).getTitulo());
             System.out.println("Nome da conferência : " + pub.get(i).nome_conf);
