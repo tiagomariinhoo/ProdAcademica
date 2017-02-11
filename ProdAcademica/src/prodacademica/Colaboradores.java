@@ -298,6 +298,7 @@ public class Colaboradores extends Pessoa {
         System.out.println("2 - Listar colaboradores");
         int op = scan.nextInt();
             String nome = null;
+            int id=-1;
             if(op==1){
                 
                 for(int j=0;j<col.size();j++){
@@ -307,11 +308,15 @@ public class Colaboradores extends Pessoa {
                 
                 System.out.println("Selecione o id do colaborador que deseja ser encontrado : ");
                 scan.nextLine();
-                nome = scan.nextLine();
+                id = scan.nextInt();
+                if(id>col.size() || id<0){
+                    System.out.println("Por favor, digite um id válido!");
+                    return ;
+                }
             }
                 for(int i=0;i<col.size();i++){
                     if(op==1){
-                        if(col.get(i).getNome().equals(nome)){
+                        if(col.get(id)!=null){
                             System.out.println("Nome : " + col.get(i).getNome());
                             System.out.println("Idade : " + col.get(i).getIdade());
                             System.out.println("Endereco : " + col.get(i).getEndereco());
@@ -608,15 +613,21 @@ public class Colaboradores extends Pessoa {
         System.out.println("----- LISTA DE COLABORADORES -----");
         for(int i=0;i<col.size();i++){
             System.out.println("Colaborador : " + col.get(i).getNome());
+            System.out.println("Id : " + i);
         }
         System.out.println("---------------");
         
         Scanner scan = new Scanner(System.in);
-        System.out.println("Digite o nome do colaborador que será removido : ");
-        String nome = scan.nextLine();
+        System.out.println("Digite o id do colaborador que será removido : ");
+        int id = scan.nextInt();
+        
+        if(id>col.size() || id<0){
+            System.out.println("Por favor, digite um id válido!");
+            return ;
+        }
         
         for(int i=0;i<col.size();i++){
-            if(col.get(i).getNome().equals(nome)){
+            if(col.get(id)!=null){
                 System.out.println("Colaborador "+ col.get(i).getNome() + " removido com sucesso!");
                 System.out.println("----------");
                 col.remove(i);
@@ -641,9 +652,15 @@ public class Colaboradores extends Pessoa {
         }
     
         System.out.println("Digite o id do colaborador que terá alteração : ");
-        int opt = scan.nextInt();
+        int id = scan.nextInt();
+        
+            if(id>col.size() || id<0){
+            System.out.println("Por favor, digite um id válido!");
+            return ;
+            }
+            
             for(int i=0;i<col.size();i++){
-                if(col.get(opt)!=null){
+                if(col.get(id)!=null){
                     System.out.println("Selecione o que deseja alterar : ");
                     System.out.println("1 - Nome");
                     System.out.println("2 - Idade");
