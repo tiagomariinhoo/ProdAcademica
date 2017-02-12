@@ -100,8 +100,7 @@ public class ProdAcademica {
         } catch(Exception e){
             scan.nextLine();
             System.out.println("Por favor, tente novamente!");
-        } 
-        
+        }
     }
     
     
