@@ -58,6 +58,8 @@ public class Publicacoes {
             return ;
         }
         int contador=0;
+        int count=0;
+        
         for(int i=0;i<proj.size();i++){
             if(proj.get(i).getStatus().equals("Em andamento")){
                 System.out.println("------- PROJETOS -------");
@@ -89,7 +91,7 @@ public class Publicacoes {
         
         System.out.println("Escolha o projeto para associar a publicação : ");
         int op = scan.nextInt();
-        
+                      
         if(op<0 || op>proj.size()-1){
             System.out.println("Por favor, selecione um projeto existente!");
             return ;

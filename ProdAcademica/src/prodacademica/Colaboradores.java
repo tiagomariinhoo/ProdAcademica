@@ -59,7 +59,7 @@ public class Colaboradores extends Pessoa {
                                 }
                             }
                             if(contador2==0){
-                                System.out.println("Não há alunos registrados!");
+                                System.out.println("Não há alunos disponíveis!");
                                 return ;
                             }
                             
@@ -102,7 +102,6 @@ public class Colaboradores extends Pessoa {
                 }
                 
                 boolean pode=false;
-                
                 if(proj.size()>0){
                     for(int i=0;i<proj.size();i++){
                         if(proj.get(i).getStatus().equals("Em elaboração")){
@@ -149,7 +148,11 @@ public class Colaboradores extends Pessoa {
                         }
                         System.out.println("Selecione o projeto por numero : ");
                         int op2 = scan.nextInt();
-
+                        if(!pode){
+                            System.out.println("Selecione um projeto válido!");
+                            return; 
+                        }
+                        
                             col.get(numb).proj.add(proj.get(op2));
                             proj.get(op2).colab.add(col.get(numb));
                             System.out.println("Projeto alocado com sucesso!");
@@ -384,13 +387,37 @@ public class Colaboradores extends Pessoa {
                             
                             System.out.println("---------------");
                         
-                            if(col.get(i).pub.size()>0){
-                                   System.out.println("------- PUBLICAÇÕES --------");
+                                   if(col.get(i).pub.size()>0){
+                                   Publicacoes[] pub = new Publicacoes[50];
+                                   Publicacoes auxpub = new Publicacoes();
+                                   
                                    for(int j=0;j<col.get(i).pub.size();j++){
-                                       System.out.println("Publicacao : " + col.get(i).pub.get(j).getTitulo());
-                                       System.out.println("Ano : " + col.get(i).pub.get(j).getAno());
+                                       pub[j] = col.get(i).pub.get(j);
                                    }
-                               }
+                                   if(col.get(i).pub.size()>1){
+                                        
+                                        for(int m = 0 ; m<col.get(i).pub.size();m++){
+                                            for(int n = 0 ; n < col.get(i).pub.size() -1 ; n++){
+                                                if(pub[n].getAno()<pub[n+1].getAno()){
+                                                    auxpub = pub[n];
+                                                    pub[n] = pub[n+1];
+                                                    pub[n+1] = auxpub;
+                                                }
+                                            }
+                                        }
+                                    }
+                                   
+                                   
+                                   System.out.println("------- PUBLICAÇÕES --------");
+                                    for(int j=0;j<col.get(i).pub.size();j++){
+                                       //System.out.println("Publicacao : " + col.get(i).pub.get(j).getTitulo());
+                                       //System.out.println("Ano : " + col.get(i).pub.get(j).getAno());
+                                       System.out.println("Publicacao : " + pub[j].getTitulo());
+                                       System.out.println("Ano : " + pub[j].getAno());
+                                   
+                                    }
+                                   }
+                            
                             return ;
                         }
                     
@@ -468,10 +495,33 @@ public class Colaboradores extends Pessoa {
                                }
                                
                                if(col.get(i).pub.size()>0){
+                                   Publicacoes[] pub = new Publicacoes[50];
+                                   Publicacoes auxpub = new Publicacoes();
+                                   
+                                   for(int j=0;j<col.get(i).pub.size();j++){
+                                       pub[j] = col.get(i).pub.get(j);
+                                   }
+                                   if(col.get(i).pub.size()>1){
+                                        
+                                        for(int m = 0 ; m<col.get(i).pub.size();m++){
+                                            for(int n = 0 ; n < col.get(i).pub.size() -1 ; n++){
+                                                if(pub[n].getAno()<pub[n+1].getAno()){
+                                                    auxpub = pub[n];
+                                                    pub[n] = pub[n+1];
+                                                    pub[n+1] = auxpub;
+                                                }
+                                            }
+                                        }
+                                    }
+                                   
+                                   
                                    System.out.println("------- PUBLICAÇÕES --------");
                                    for(int j=0;j<col.get(i).pub.size();j++){
-                                       System.out.println("Publicacao : " + col.get(i).pub.get(j).getTitulo());
-                                       System.out.println("Ano : " + col.get(i).pub.get(j).getAno());
+                                       //System.out.println("Publicacao : " + col.get(i).pub.get(j).getTitulo());
+                                       //System.out.println("Ano : " + col.get(i).pub.get(j).getAno());
+                                       System.out.println("Publicacao : " + pub[j].getTitulo());
+                                       System.out.println("Ano : " + pub[j].getAno());
+                                   
                                    }
                                }
                             

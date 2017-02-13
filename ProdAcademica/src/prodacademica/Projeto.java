@@ -3,6 +3,7 @@ package prodacademica;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
@@ -21,19 +22,6 @@ public class Projeto {
      ArrayList<Colaboradores> colab = new ArrayList<Colaboradores>();
      ArrayList<Publicacoes> publicacoes = new ArrayList<Publicacoes>();
 
-    
-
-    /*public Projeto(String titulo, Date dataInicio, Date dataTermino, String agenciaFinanciadora, double valorFinanciado, String objetivo, String descricao, int participantes, String status) {
-        this.titulo = titulo;
-        this.dataInicio = dataInicio;
-        this.dataTermino = dataTermino;
-        this.agenciaFinanciadora = agenciaFinanciadora;
-        this.valorFinanciado = valorFinanciado;
-        this.objetivo = objetivo;
-        this.descricao = descricao;
-        this.participantes = participantes;
-        this.status = status;
-    }*/
 
      public boolean getAlocado() { //VERIFICAR SE HÁ PUBLICAÇÃO ALOCADA A ESSE PROJETO
         return alocado;
@@ -177,38 +165,77 @@ public class Projeto {
             return ;
         }
         
+        Projeto[] auxpro = new Projeto[50];
+        if(proj.size()>0){
+            for(int i=0;i<proj.size();i++){
+                auxpro[i] = proj.get(i);
+            }
+        }
+        
+            if(proj.size()>1){
+                                    
+                                    Projeto aux = new Projeto();
+                                    GregorianCalendar cal = new GregorianCalendar();
+                                    GregorianCalendar cal2 = new GregorianCalendar();
+                                    
+                                    for(int j=0;j<proj.size();j++){ //Ordenação
+                                        for(int k=0;k<proj.size()-1;k++){
+                                            cal.setTime(auxpro[k].getDataTermino());
+                                            cal2.setTime(auxpro[k+1].getDataTermino());
+                                            
+                                            if(cal.get(Calendar.YEAR)<cal2.get(Calendar.YEAR)){
+                                                Projeto projaux = new Projeto();
+                                                projaux = auxpro[k];
+                                                auxpro[k] = auxpro[k+1];
+                                                auxpro[k+1] = projaux;
+                                                
+                                            }
+                                        }
+                                    }
+                                }
+                                
+        
         for(int i=0;i<proj.size();i++){
-            System.out.println("Titulo : " + proj.get(i).getTitulo());
+            /*System.out.println("Titulo : " + proj.get(i).getTitulo());
             System.out.println("Data Inicio : " + proj.get(i).getDataInicio());
             System.out.println("Data Término : " + proj.get(i).getDataTermino());
             System.out.println("Agência financiadora : " + proj.get(i).getAgenciaFinanciadora());
             System.out.println("Valor financiado : " + proj.get(i).getValorFinanciado());
             System.out.println("Objetivo : " + proj.get(i).getObjetivo());
             System.out.println("Descricao : " + proj.get(i).getDescricao());
-            System.out.println("Status : " + proj.get(i).getStatus());
+            System.out.println("Status : " + proj.get(i).getStatus());*/
                 
-            if(proj.get(i).getAlocado()==true){
+            System.out.println("Titulo : " + auxpro[i].getTitulo());
+            System.out.println("Data Inicio : " + auxpro[i].getDataInicio());
+            System.out.println("Data Término : " + auxpro[i].getDataTermino());
+            System.out.println("Agência financiadora : " + auxpro[i].getAgenciaFinanciadora());
+            System.out.println("Valor financiado : " + auxpro[i].getValorFinanciado());
+            System.out.println("Objetivo : " + auxpro[i].getObjetivo());
+            System.out.println("Descricao : " + auxpro[i].getDescricao());
+            System.out.println("Status : " + auxpro[i].getStatus());
+            
+            if(auxpro[i].getAlocado()==true){
                 System.out.println("------");
                     System.out.println("PUBLICAÇÃO ALOCADA : ");
                     Publicacoes pub_aux = new Publicacoes();
                     
-                    pub_aux.mostrarPublicacao(proj.get(i).publicacoes);
+                    pub_aux.mostrarPublicacao(auxpro[i].publicacoes);
                     System.out.println("------");
                 }
                 
-                if(proj.get(i).colab.size()>0){
-                    for(int j=0;j<proj.get(i).colab.size();j++){
+                if(auxpro[i].colab.size()>0){
+                    for(int j=0;j<auxpro[i].colab.size();j++){
                         System.out.println("------ COLABORADORES ------");
-                            System.out.println("Colaborador : " + proj.get(i).colab.get(j).getNome());
-                            if(proj.get(i).colab.get(j).getCargo()==1){
+                            System.out.println("Colaborador : " + auxpro[i].colab.get(j).getNome());
+                            if(auxpro[i].colab.get(j).getCargo()==1){
                                 System.out.println("Cargo : Aluno de graduação");
-                            } else if (proj.get(i).colab.get(j).getCargo()==2){
+                            } else if (auxpro[i].colab.get(j).getCargo()==2){
                                 System.out.println("Cargo : Aluno de mestrado");
-                            } else if (proj.get(i).colab.get(j).getCargo()==3){
+                            } else if (auxpro[i].colab.get(j).getCargo()==3){
                                 System.out.println("Cargo : Aluno de doutorado");
-                            } else if (proj.get(i).colab.get(j).getCargo()==4){
+                            } else if (auxpro[i].colab.get(j).getCargo()==4){
                                 System.out.println("Cargo : Professor");
-                            } else if (proj.get(i).colab.get(j).getCargo()==5){
+                            } else if (auxpro[i].colab.get(j).getCargo()==5){
                                 System.out.println("Cargo : Pesquisador");
                             }
                             System.out.println("----------");   
@@ -357,7 +384,6 @@ public class Projeto {
     
     public int menuProjeto(){
         Scanner scan = new Scanner(System.in);
-        //Colaboradores col_aux = new Colaboradores();
         Projeto proj = new Projeto();
         
         System.out.println("--------------------");

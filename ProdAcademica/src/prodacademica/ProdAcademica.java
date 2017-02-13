@@ -91,6 +91,7 @@ public class ProdAcademica {
                     System.out.println("Numero de projetos em andamento : " + proj_aux.contarProjetos(2, proj));
                     System.out.println("Numero de projetos concluidos : " + proj_aux.contarProjetos(3, proj));
                     System.out.println("Numero total de projetos : " + proj.size());
+                    System.out.println("Numero de publicacoes : " + pub.size());
                     col_aux.prodAcademicaGrad(col);
                     
                 }else if (op==0){
