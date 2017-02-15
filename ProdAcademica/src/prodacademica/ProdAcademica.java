@@ -98,6 +98,12 @@ public class ProdAcademica {
                     break;
                 }  
             //1pass=0;
+        } catch (IndexOutOfBoundsException n){
+            scan.nextLine();
+            System.out.println("Selecione uma opcao válida!");
+        } catch (RuntimeException m) {
+            System.out.println("Por favor, digite algo válido!");
+            scan.nextLine();
         } catch(Exception e){
             scan.nextLine();
             System.out.println("Por favor, tente novamente!");
