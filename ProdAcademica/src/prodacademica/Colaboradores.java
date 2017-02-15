@@ -559,13 +559,13 @@ public class Colaboradores extends Pessoa {
         System.out.println("2 - Mestrado");
         System.out.println("3 - Doutorado");
         System.out.println("4 - Professor");
-        System.out.println("5 - Pesquisador");
+        //System.out.println("5 - Pesquisador");
         
         int flag=0;
         int op;
         do{
             op = scan.nextInt();
-            if(op>0 && op<6) flag=1;
+            if(op>0 && op<5) flag=1;
             else {
                 System.out.println("Por favor, selecione uma opção válida!");
             }
